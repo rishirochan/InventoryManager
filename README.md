@@ -1,20 +1,40 @@
 # Inventory Manager
 
-A robust backend API for managing inventory, built with FastAPI.
+A Full Stack Inventory Management System built with **FastAPI** (Backend) and **React** (Frontend).
 
-## Progress Log
+## 🚀 Tech Stack
+- **Backend**: Python 3.13, FastAPI, SQLAlchemy, SQLite
+- **Frontend**: React 19, Vite
+- **Tools**: `uv` (Python Package Manager), Git
 
-### Phase 1: Foundation
-- [x] **Environment Setup**: Initialized project with `uv` and created a virtual environment (Python 3.13).
-- [x] **Dependencies**: Installed `fastapi` and `uvicorn`.
-- [x] **Hello World**: Implemented a basic server in `src/main.py`.
-- [x] **Version Control**: Initialized Git repository and connected to GitHub.
+## ✨ Features
+- **Product Management**: Create, Read, Update, and Delete (CRUD) products.
+- **Real Database**: Data is persisted in `inventory.db` using SQLite.
+- **Modern UI**: Fast and responsive React interface.
+- **Validation**: Robust data validation using Pydantic.
 
-## Quick Start
+## 🛠️ How to Run
 
-1.  **Run the server**:
-    ```bash
-    uv run uvicorn src.main:app --reload
-    ```
-2.  **View Documentation**:
-    Open [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+### 1. Start the Backend
+```bash
+# From the root folder
+uv run uvicorn src.main:app
+```
+*The API will be available at http://127.0.0.1:8000*  
+*Interactive Docs: http://127.0.0.1:8000/docs*
+
+### 2. Start the Frontend
+```bash
+# Open a new terminal
+cd ui
+npm run dev
+```
+*The UI will open at http://localhost:5173*
+
+## 📂 Project Structure
+- `src/`: Backend code (FastAPI)
+  - `main.py`: API endpoints and Logic
+  - `models.py`: Database table definitions
+  - `database.py`: Database connection setup
+- `ui/`: Frontend code (React)
+- `inventory.db`: SQLite Database file (Created automatically)
