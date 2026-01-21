@@ -1,40 +1,62 @@
-# Inventory Manager
+# Inventory Manager 📦
 
-A Full Stack Inventory Management System built with **FastAPI** (Backend) and **React** (Frontend).
-
-## 🚀 Tech Stack
-- **Backend**: Python 3.13, FastAPI, SQLAlchemy, SQLite
-- **Frontend**: React 19, Vite
-- **Tools**: `uv` (Python Package Manager), Git
+A Full Stack, Cloud-Ready Inventory Management System.
+Built with **FastAPI** (Backend) and **React** (Frontend).
 
 ## ✨ Features
-- **Product Management**: Create, Read, Update, and Delete (CRUD) products.
-- **Real Database**: Data is persisted in `inventory.db` using SQLite.
-- **Modern UI**: Fast and responsive React interface.
-- **Validation**: Robust data validation using Pydantic.
+### Core Functionality
+-   **Full CRUD**: Create, Read, Update, and Delete products.
+-   **Real-time Updates**: Instant feedback on inventory changes.
+-   **Robust Validation**: Data integrity ensured by Pydantic.
 
-## 🛠️ How to Run
+### Modern UI/UX 🎨
+-   **Glassmorphism Design**: Sleek "Glass Card" aesthetic.
+-   **Dark/Purple Theme**: Modern topography and vibrant accent colors.
+-   **Responsive Layout**: Works on desktop and mobile.
+-   **Interactive**: Hover effects, loading states, and dynamic forms.
+
+### Cloud Architecture ☁️
+-   **Backend**: Python 3.13 + FastAPI + SQLAlchemy.
+-   **Database**:
+    -   *Local*: SQLite (Zero config).
+    -   *Cloud*: PostgreSQL (`psycopg2` driver included).
+-   **Frontend**: React 18 + Vite (SPA Routing enabled via `vercel.json`).
+-   **Environment Aware**: Automatically switches API URLs based on environment.
+
+## � How to Run Locally
 
 ### 1. Start the Backend
 ```bash
-# From the root folder
+# Install dependencies
+uv sync
+
+# Run Server
 uv run uvicorn src.main:app
 ```
-*The API will be available at http://127.0.0.1:8000*  
-*Interactive Docs: http://127.0.0.1:8000/docs*
+*API running at: http://127.0.0.1:8000*
 
 ### 2. Start the Frontend
 ```bash
-# Open a new terminal
 cd ui
+
+# Install Node modules
+npm install
+
+# Start Dev Server
 npm run dev
 ```
-*The UI will open at http://localhost:5173*
+*UI running at: http://localhost:5173*
 
-## 📂 Project Structure
-- `src/`: Backend code (FastAPI)
-  - `main.py`: API endpoints and Logic
-  - `models.py`: Database table definitions
-  - `database.py`: Database connection setup
-- `ui/`: Frontend code (React)
-- `inventory.db`: SQLite Database file (Created automatically)
+## � Project Structure
+```
+├── src/                # FastAPI Backend
+│   ├── main.py         # API Endpoints
+│   ├── models.py       # Database Tables
+│   └── database.py     # DB Connection (SQLite/Postgres)
+├── ui/                 # React Frontend
+│   ├── src/App.jsx     # Main UI Logic
+│   ├── src/index.css   # Modern Styling
+│   └── vercel.json     # Cloud Routing Config
+├── requirements.txt    # Backend Dependencies (for Render)
+└── inventory.db        # Local Database (Ignored by Git)
+```

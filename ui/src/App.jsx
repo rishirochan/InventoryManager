@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
 
 function App() {
   const [products, setProducts] = useState([])
@@ -13,7 +14,7 @@ function App() {
     setQuantity(product.quantity)
   }
   const handleDelete = async (id) => {
-    await fetch(`http://127.0.0.1:8000/products/${id}`, {
+    await fetch(`${API_URL}/products/${id}`, {
       method: "DELETE",
     })
     window.location.reload()
@@ -23,14 +24,14 @@ function App() {
     const product = { name, price: parseFloat(price), quantity: parseInt(quantity) }
     if (id) {
       // Update Mode (PUT)
-      await fetch(`http://127.0.0.1:8000/products/${id}`, {
+      await fetch(`${API_URL}/products/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product)
       })
     } else {
       // Create Mode (POST)
-      await fetch("http://127.0.0.1:8000/products", {
+      await fetch(`${API_URL}/products`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product)
@@ -43,7 +44,7 @@ function App() {
     window.location.reload()
   }
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/products")
+    fetch(`${API_URL}/products`)
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error:", error))
