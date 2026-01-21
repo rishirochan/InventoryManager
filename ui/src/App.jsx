@@ -17,31 +17,34 @@ function App() {
     await fetch(`${API_URL}/products/${id}`, {
       method: "DELETE",
     })
-    window.location.reload()
+    setProducts(products.filter((product) => product.id !== id))
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
     const product = { name, price: parseFloat(price), quantity: parseInt(quantity) }
     if (id) {
       // Update Mode (PUT)
-      await fetch(`${API_URL}/products/${id}`, {
+      const response = await fetch(`${API_URL}/products/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product)
       })
+      const updatedProduct = await response.json()
+      setProducts(products.map((p) => (p.id === id ? updatedProduct : p)))
     } else {
       // Create Mode (POST)
-      await fetch(`${API_URL}/products`, {
+      const response = await fetch(`${API_URL}/products`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product)
       })
+      const data = await response.json()
+      setProducts([...products, data])
     }
     setId(null)
     setName("")
     setPrice("")
     setQuantity("")
-    window.location.reload()
   }
   useEffect(() => {
     fetch(`${API_URL}/products`)
