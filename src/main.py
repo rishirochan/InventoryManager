@@ -33,10 +33,8 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "https://inventory-manager-iota-livid.vercel.app"
-    ],
+    allow_origins=["http://localhost:5173"], # Keep localhost for dev
+    allow_origin_regex="https://.*\.vercel\.app", # Allow ANY Vercel deployment (preview or prod)
     allow_credentials=True,
     allow_methods=["*"], 
     allow_headers=["*"],

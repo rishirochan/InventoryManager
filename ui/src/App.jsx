@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
+console.log("🔌 Connected to Backend at:", API_URL)
 
 function App() {
   const [products, setProducts] = useState([])
@@ -22,29 +23,44 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const product = { name, price: parseFloat(price), quantity: parseInt(quantity) }
-    if (id) {
-      // Update Mode (PUT)
-      const response = await fetch(`${API_URL}/products/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product)
-      })
-      const updatedProduct = await response.json()
-      setProducts(products.map((p) => (p.id === id ? updatedProduct : p)))
-    } else {
-      // Create Mode (POST)
-      const response = await fetch(`${API_URL}/products`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product)
-      })
+
+    try {
+      let response;
+      if (id) {
+        response = await fetch(`${API_URL}/products/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(product)
+        })
+      } else {
+        response = await fetch(`${API_URL}/products`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(product)
+        })
+      }
+
+      if (!response.ok) {
+        throw new Error(`Server Error: ${response.status}`)
+      }
+
       const data = await response.json()
-      setProducts([...products, data])
+      if (id) {
+        setProducts(products.map((p) => (p.id === id ? data : p)))
+      } else {
+        setProducts([...products, data])
+      }
+
+      // Reset Form
+      setId(null)
+      setName("")
+      setPrice("")
+      setQuantity("")
+
+    } catch (error) {
+      console.error("Submission Failed:", error)
+      alert("Failed to save product! Check console for details.")
     }
-    setId(null)
-    setName("")
-    setPrice("")
-    setQuantity("")
   }
   useEffect(() => {
     fetch(`${API_URL}/products`)
